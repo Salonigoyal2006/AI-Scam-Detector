@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Scam Detection Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡️ AI Scam Detector
+        </div>
+
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/analyze">Chat Analyzer</a></li>
+            <li><a href="/screenshot">Screenshot Scan</a></li>
+            <li><a href="/voice">Voice Scan</a></li>
+            <li><a href="/awareness">Awareness</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="result-box">
+
+            <h1>🤖 AI Analysis Result</h1>
+
+            {% if result == "SCAM" %}
+
+                <div class="result-badge scam">
+                    🚨 SCAM DETECTED
+                </div>
+
+            {% elif result == "SUSPICIOUS" %}
+
+                <div class="result-badge suspicious">
+                    ⚠️ SUSPICIOUS
+                </div>
+
+            {% else %}
+
+                <div class="result-badge safe">
+                    ✅ SAFE
+                </div>
+
+            {% endif %}
+
+            <h2>AI Confidence Score</h2>
+
+            <div class="progress">
+
+                <div class="progress-fill"
+                     style="width: {{ score }}%;">
+
+                    {{ score }}%
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <h2>📂 Scam Categories</h2>
+
+            {% if categories %}
+
+            <div class="tag-container">
+
+                {% for category in categories %}
+
+                    <span class="tag">
+                        {{ category }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p>No scam category detected.</p>
+
+            {% endif %}
+
+            <br>
+
+            <h2>🔍 Detected Keywords</h2>
+
+            {% if found_words %}
+
+            <div class="tag-container">
+
+                {% for word in found_words %}
+
+                    <span class="keyword-tag">
+                        {{ word }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p>No suspicious keywords found.</p>
+
+            {% endif %}
+
+            <br>
+
+            <h2>📜 Why Was This Flagged?</h2>
+
+            {% if reasons %}
+
+            <ul class="reason-list">
+
+                {% for reason in reasons %}
+
+                    <li>✔ {{ reason }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+            {% else %}
+
+            <p>No reasons found.</p>
+
+            {% endif %}
+
+            <br>
+
+            <h2>💬 Analyzed Content</h2>
+
+            <div class="chat-box">
+                {{ chat }}
+            </div>
+
+            <br>
+
+            <div class="action-buttons">
+
+                <a href="/analyze">
+                    <button>💬 Analyze Chat</button>
+                </a>
+
+                <a href="/screenshot">
+                    <button>📷 Scan Screenshot</button>
+                </a>
+
+                <a href="/">
+                    <button>🏠 Home</button>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

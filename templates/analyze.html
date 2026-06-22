@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡 AI Scam Detector
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/analyze">Chat Analyzer</a>
+            <a href="/screenshot">Screenshot</a>
+            <a href="/voice">Voice</a>
+            <a href="/awareness">Awareness</a>
+            <a href="/about">About</a>
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <h1>💬 Chat Analyzer</h1>
+
+        <br>
+
+        <p>
+            Paste any WhatsApp, SMS, Telegram or Email conversation
+            and let AI detect possible scams.
+        </p>
+
+        <div class="form-box">
+
+            <form method="POST">
+
+                <textarea
+                    name="chat"
+                    placeholder="Paste your conversation here..."
+                    required>
+                </textarea>
+
+                <br><br>
+
+                <button class="btn" type="submit">
+                    Analyze Conversation
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="card">
+                <h2>OTP</h2>
+                <p>Scam Detection</p>
+            </div>
+
+            <div class="card">
+                <h2>UPI</h2>
+                <p>Fraud Detection</p>
+            </div>
+
+            <div class="card">
+                <h2>KYC</h2>
+                <p>Verification Scam</p>
+            </div>
+
+            <div class="card">
+                <h2>Bank</h2>
+                <p>Impersonation Scam</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

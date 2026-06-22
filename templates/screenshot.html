@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Screenshot Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛡 AI Scam Detector
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/analyze">Chat Analyzer</a>
+        <a href="/screenshot">Screenshot</a>
+        <a href="/voice">Voice</a>
+        <a href="/awareness">Awareness</a>
+        <a href="/about">About</a>
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <h1>📸 Screenshot Scam Analyzer</h1>
+
+    <br>
+
+    <p>
+        Upload a WhatsApp, Telegram, SMS or Email screenshot.
+    </p>
+
+    <br>
+
+    <div class="form-box">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <input type="file" name="image">
+
+            <br><br>
+
+            <button class="btn">
+                Analyze Screenshot
+            </button>
+
+        </form>
+
+    </div>
+
+    <br>
+
+    <div class="stats">
+
+        <div class="card">
+            <h2>OCR</h2>
+            <p>Text Extraction</p>
+        </div>
+
+        <div class="card">
+            <h2>AI</h2>
+            <p>Scam Detection</p>
+        </div>
+
+        <div class="card">
+            <h2>UPI</h2>
+            <p>Fraud Analysis</p>
+        </div>
+
+        <div class="card">
+            <h2>Chat</h2>
+            <p>Conversation Review</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

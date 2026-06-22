@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Scam Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">🛡️ AI Scam Detector</div>
+
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/analyze">Chat Analyzer</a></li>
+        <li><a href="/screenshot">Screenshot Scan</a></li>
+        <li><a href="/voice">Voice Scan</a></li>
+        <li><a href="/awareness">Awareness</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🎤 Voice Scam Detector</h1>
+
+        <p>
+            Speak a message and let AI detect scam patterns.
+        </p>
+
+        <textarea
+            id="voiceText"
+            rows="10"
+            placeholder="Voice transcript will appear here..."
+        ></textarea>
+
+        <br><br>
+
+        <button onclick="startRecognition()">
+            🎙 Start Recording
+        </button>
+
+        <form action="/analyze" method="POST">
+
+            <input
+                type="hidden"
+                id="chat"
+                name="chat"
+            >
+
+            <br><br>
+
+            <button type="submit">
+                Analyze Transcript
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function startRecognition() {
+
+    const recognition =
+        new webkitSpeechRecognition();
+
+    recognition.lang = "en-US";
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+
+        let transcript =
+            event.results[0][0].transcript;
+
+        document.getElementById("voiceText").value =
+            transcript;
+
+        document.getElementById("chat").value =
+            transcript;
+    };
+}
+
+</script>
+
+</body>
+</html>
