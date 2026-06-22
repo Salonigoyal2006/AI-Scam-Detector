@@ -51,6 +51,8 @@
 
             {% endif %}
 
+            <br>
+
             <h2>AI Confidence Score</h2>
 
             <div class="progress">
@@ -63,6 +65,18 @@
                 </div>
 
             </div>
+
+            <br>
+
+            <h2>🎯 Scam Type</h2>
+
+            <p style="
+                font-size:24px;
+                font-weight:bold;
+                color:#ffcc00;
+            ">
+                {{ scam_type }}
+            </p>
 
             <br>
 
@@ -116,13 +130,13 @@
 
             <h2>📜 Why Was This Flagged?</h2>
 
-            {% if reasons %}
+            {% if found_words %}
 
             <ul class="reason-list">
 
-                {% for reason in reasons %}
+                {% for word in found_words %}
 
-                    <li>✔ {{ reason }}</li>
+                    <li>✔ {{ word }} detected</li>
 
                 {% endfor %}
 
@@ -165,13 +179,5 @@
     </div>
 
 </body>
-
 </html>
 
-        </div>
-
-    </div>
-
-</body>
-
-</html>

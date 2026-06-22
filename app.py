@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request
 import os
 import easyocr
+import joblib
+
+model = joblib.load("scam_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
 
 app = Flask(__name__)
 
@@ -68,6 +72,22 @@ scam_database = {
 def detect_scam(text):
 
     text = text.lower()
+    # ======================================
+    # ML PREDICTION
+    # ======================================
+
+    try:
+        text_vector = vectorizer.transform([text])
+
+        ml_prediction = model.predict(text_vector)[0]
+
+        ml_probability = model.predict_proba(text_vector)[0][1]
+
+        ml_score = int(ml_probability * 100)
+
+    except:
+        ml_prediction = 0
+        ml_score = 0
 
     score = 0
 
@@ -138,6 +158,12 @@ def detect_scam(text):
     if "click link" in text:
         score += 15
 
+    # ======================================
+    # COMBINE ML + RULE SCORE
+    # ======================================
+
+    score = int((score + ml_score) / 2)
+
     score = min(score, 100)
 
     # ======================================
@@ -152,8 +178,28 @@ def detect_scam(text):
 
     else:
         result = "SAFE"
+    
+    # ======================================
+    # PRIMARY SCAM TYPE
+    # ======================================
 
-    return result, score, found_words, categories
+    if "Lottery Scam" in categories:
+        scam_type = "Lottery Scam"
+
+    elif "UPI Scam" in categories:
+        scam_type = "UPI Scam"
+
+    elif "Banking Scam" in categories:
+        scam_type = "Banking Scam"
+
+    elif "KYC Scam" in categories:
+        scam_type = "KYC Scam"
+
+    else:
+        scam_type = "General Scam"
+
+    return result, score, found_words, categories, scam_type
+
 
 
 # ==========================================
@@ -176,7 +222,7 @@ def analyze():
 
         chat = request.form.get("chat", "")
 
-        result, score, found_words, categories = detect_scam(chat)
+        result, score, found_words, categories, scam_type = detect_scam(chat)
 
         return render_template(
             "result.html",
@@ -184,7 +230,8 @@ def analyze():
             score=score,
             found_words=found_words,
             categories=categories,
-            chat=chat
+            chat=chat,
+            scam_type=scam_type
         )
 
     return render_template("analyze.html")
@@ -215,7 +262,7 @@ def screenshot():
         for item in results:
             extracted_text += item[1] + " "
 
-        result, score, found_words, categories = detect_scam(
+        result, score, found_words, categories,scam_type = detect_scam(
             extracted_text
         )
 
@@ -225,7 +272,8 @@ def screenshot():
             score=score,
             found_words=found_words,
             categories=categories,
-            chat=extracted_text
+            chat=extracted_text,
+            scam_type=scam_type
         )
 
     return render_template("screenshot.html")
