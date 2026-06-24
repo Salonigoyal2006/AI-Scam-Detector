@@ -84,6 +84,12 @@ def detect_scam(text):
         ml_probability = model.predict_proba(text_vector)[0][1]
 
         ml_score = int(ml_probability * 100)
+        print("\n===== ML DEBUG =====")
+        print("Text:", text)
+        print("ML Prediction:", ml_prediction)
+        print("ML Probability:", ml_probability)
+        print("ML Score:", ml_score)
+        print("====================\n")
 
     except:
         ml_prediction = 0
